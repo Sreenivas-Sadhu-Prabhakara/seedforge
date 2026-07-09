@@ -1,11 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
-<meta name="description" content="seedforge — a private, in-browser fake data generator. Reproducible seeded rows, 20+ field types, CSV/JSON/SQL export. Nothing leaves your device.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'">
+
+<title>seedforge — private fake data & test data generator</title>
+<meta name="description" content="Free, private fake-data generator. Build a schema and export realistic CSV, JSON, or SQL test data — reproducible from a seed, 20+ field types, 100% in your browser.">
+<link rel="canonical" href="https://sreenivas-sadhu-prabhakara.github.io/seedforge/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Sreenivas Sadhu Prabhakara">
+<meta name="keywords" content="fake data generator, test data, seed data, mock data, sample database, CSV generator, JSON generator, SQL insert generator, faker, dummy data">
 <meta name="color-scheme" content="dark">
-<title>seedforge — private, reproducible fake data</title>
+<meta name="theme-color" content="#16130E">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="seedforge">
+<meta property="og:title" content="seedforge — private fake data & test data generator">
+<meta property="og:description" content="Free, private fake-data generator. Build a schema and export realistic CSV, JSON, or SQL test data — reproducible from a seed, 20+ field types, 100% in your browser.">
+<meta property="og:url" content="https://sreenivas-sadhu-prabhakara.github.io/seedforge/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sreenivas-sadhu-prabhakara.github.io/seedforge/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="seedforge — forge realistic data, nothing leaves your machine">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="seedforge — private fake data & test data generator">
+<meta name="twitter:description" content="Free, private fake-data generator. Build a schema and export realistic CSV, JSON, or SQL test data — reproducible from a seed, 20+ field types, 100% in your browser.">
+<meta name="twitter:image" content="https://sreenivas-sadhu-prabhakara.github.io/seedforge/og-image.png">
+<meta name="twitter:image:alt" content="seedforge — forge realistic data, nothing leaves your machine">
+
 <link rel="stylesheet" href="styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316130E'/%3E%3Cpath d='M8 20 L16 8 L24 20 Z' fill='%23E8622A'/%3E%3Ccircle cx='16' cy='20' r='3' fill='%23F2B03D'/%3E%3C/svg%3E">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "seedforge",
+      "description": "Free, private fake-data generator. Build a schema and export realistic CSV, JSON, or SQL test data — reproducible from a seed, with 20+ field types, entirely in your browser.",
+      "url": "https://sreenivas-sadhu-prabhakara.github.io/seedforge/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (modern web browser)",
+      "browserRequirements": "Requires a modern browser with JavaScript enabled",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "license": "https://opensource.org/licenses/MIT",
+      "author": {
+        "@type": "Person",
+        "name": "Sreenivas Sadhu Prabhakara"
+      },
+      "softwareVersion": "0.1.0",
+      "featureList": [
+        "Reproducible seeded output",
+        "20+ field types",
+        "CSV, JSON, and SQL export",
+        "Correct CSV and SQL escaping",
+        "100% offline — nothing leaves your device",
+        "No accounts, no tracking"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my data sent to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. seedforge runs entirely in your browser; a Content-Security-Policy of connect-src 'none' blocks all network access, so nothing you enter can leave your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the output reproducible?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — the same seed, schema, and row count always produce byte-identical data. Share a seed with a teammate and you both get the exact same fixtures."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which formats can I export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CSV, JSON, and SQL INSERT statements, with correct escaping for each format."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
 
 <a class="skip-link" href="#preview-region">Skip to preview</a>
 
@@ -15,7 +114,7 @@
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 32 32" width="26" height="26" focusable="false"><path d="M6 22 L16 7 L26 22 Z" class="anvil-tri"/><circle cx="16" cy="22" r="3.4" class="anvil-dot"/></svg>
       </span>
-      <span class="wordmark">seedforge</span>
+      <h1 class="wordmark">seedforge</h1>
       <span class="tagline">Forge realistic data. Nothing leaves your machine.</span>
     </div>
 
@@ -113,3 +212,5 @@
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script src="app.js"></script>
+</body>
+</html>
