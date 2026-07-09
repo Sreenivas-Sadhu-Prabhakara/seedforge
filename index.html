@@ -1,0 +1,115 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="description" content="seedforge — a private, in-browser fake data generator. Reproducible seeded rows, 20+ field types, CSV/JSON/SQL export. Nothing leaves your device.">
+<meta name="color-scheme" content="dark">
+<title>seedforge — private, reproducible fake data</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316130E'/%3E%3Cpath d='M8 20 L16 8 L24 20 Z' fill='%23E8622A'/%3E%3Ccircle cx='16' cy='20' r='3' fill='%23F2B03D'/%3E%3C/svg%3E">
+
+<a class="skip-link" href="#preview-region">Skip to preview</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="26" height="26" focusable="false"><path d="M6 22 L16 7 L26 22 Z" class="anvil-tri"/><circle cx="16" cy="22" r="3.4" class="anvil-dot"/></svg>
+      </span>
+      <span class="wordmark">seedforge</span>
+      <span class="tagline">Forge realistic data. Nothing leaves your machine.</span>
+    </div>
+
+    <div class="controls">
+      <div class="control-group seed-group">
+        <label class="micro-label" for="seed">Seed</label>
+        <input class="mono-input seed-input" id="seed" type="text" inputmode="text" autocomplete="off" spellcheck="false" value="42" aria-describedby="seed-note">
+        <span class="seed-note" id="seed-note">Reproducible — same seed, same data</span>
+      </div>
+
+      <div class="control-group gauge-group">
+        <label class="micro-label" for="rows-range">Rows</label>
+        <div class="gauge">
+          <input class="gauge-slider" id="rows-range" type="range" min="1" max="5000" value="500" step="1" aria-label="Row count">
+          <input class="mono-input gauge-number" id="rows-number" type="number" min="1" max="5000" value="500" aria-label="Row count (exact)">
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <section class="panel schema-panel" aria-labelledby="schema-heading">
+    <div class="panel-head">
+      <h2 class="panel-title" id="schema-heading">Schema</h2>
+      <p class="panel-sub">Define your columns. Each row is one field.</p>
+    </div>
+
+    <div class="fields" id="fields" role="list" aria-label="Schema fields"></div>
+
+    <div class="empty-state" id="empty-state" hidden>
+      <p class="empty-title">Add fields to start forging</p>
+      <p class="empty-sub">A schema needs at least one column before it can cast rows.</p>
+      <button class="btn btn-ghost" id="empty-load-example" type="button">Load example schema</button>
+    </div>
+
+    <div class="schema-actions">
+      <button class="btn btn-add" id="add-field" type="button"><span aria-hidden="true">+</span> Add field</button>
+      <button class="btn btn-ghost" id="load-example" type="button">Load example</button>
+    </div>
+  </section>
+
+  <section class="panel preview-panel" id="preview-region" aria-labelledby="preview-heading">
+    <div class="panel-head preview-head">
+      <div>
+        <h2 class="panel-title" id="preview-heading">Preview</h2>
+        <p class="panel-sub" id="preview-sub">Showing the first rows. Export uses every row.</p>
+      </div>
+      <button class="btn btn-cast" id="cast" type="button">
+        <span class="cast-label" id="cast-label">Cast 500 rows</span>
+      </button>
+    </div>
+
+    <div class="table-wrap" id="table-wrap">
+      <table class="data-table" id="data-table" aria-describedby="preview-sub">
+        <thead id="table-head"></thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+
+    <div class="export">
+      <div class="export-bar">
+        <div class="tabs" role="tablist" aria-label="Export format">
+          <button class="tab is-active" id="tab-csv" type="button" role="tab" aria-selected="true" aria-controls="export-out" data-fmt="csv">CSV</button>
+          <button class="tab" id="tab-json" type="button" role="tab" aria-selected="false" aria-controls="export-out" data-fmt="json">JSON</button>
+          <button class="tab" id="tab-sql" type="button" role="tab" aria-selected="false" aria-controls="export-out" data-fmt="sql">SQL</button>
+        </div>
+
+        <div class="export-actions">
+          <label class="micro-label sql-table-label" for="sql-table" id="sql-table-label" hidden>Table</label>
+          <input class="mono-input sql-table-input" id="sql-table" type="text" value="users" autocomplete="off" spellcheck="false" aria-label="SQL table name" hidden>
+          <button class="btn btn-ghost" id="copy-btn" type="button">Copy</button>
+          <button class="btn btn-download" id="download-btn" type="button">Download CSV</button>
+        </div>
+      </div>
+
+      <pre class="export-out" id="export-out" tabindex="0" role="tabpanel" aria-label="Export output"></pre>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p class="footer-line">
+    All generated data is random and fictional; any resemblance is coincidental. Credit-card numbers are non-functional test patterns.
+  </p>
+  <p class="footer-meta">
+    <span class="pill">MIT</span>
+    <span class="pill">private</span>
+    <span class="pill">offline</span>
+    <span class="footer-note">Nothing you enter ever leaves your device — enforced by the browser, not a promise.</span>
+  </p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="app.js"></script>
